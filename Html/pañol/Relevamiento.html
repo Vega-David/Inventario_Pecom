@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingreso de Productos</title>
+</head>
+<body>
+    <h1>Ingresos al pañol</h1>
+    <form id="Formu">
+        <label for="Codigo">Codigo de SAP:</label>
+        <input type="number" id="Codigo" placeholder="Codigo de SAP"><br>
+        <label for="Nombre">Nombre de Herramienta</label>
+        <input type="text" id="Nombre" placeholder="Nombre"><br>
+        <label for="Descripcion">Descripcion</label>
+        <input type="text" id="Descripcion" placeholder="Descripcion"><br>
+        <label for="Existente">Cantidad Existente</label>
+        <input type="number" id="Existente" placeholder="Cantidad existente en stock"><br>
+        <label for="Minimo">Minimo</label>
+        <input type="number" id="Minimo" placeholder="Minimo que debe haber en stock"><br>
+        <button id="Btn">Agregar Producto</button><br><br>
+    </form>
+    <h2>Productos a Agregar</h2>
+
+    <input type="text" id="buscador" placeholder="Buscar Código de SAP">    
+
+    <table id="Relevamiento" border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Codigo de SAP</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Cantidad Existente</th>
+                <th>Cantidad Minima</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Las filas se agregarán dinámicamente aquí -->
+        </tbody> 
+    </table><br><br>
+    <button id="Excel">Generar Excel</button>
+    <a href="../index.html"><button>VOLVER</button></a>
+    <script type="module" src="../../JS/relevamiento.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <a href="../revisarStock.html">Stock</a>
+</body>
+</html>

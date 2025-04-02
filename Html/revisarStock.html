@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revisar Stock</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="../JS/revisarStock.js" defer></script>
+    <style>
+        .verde { background-color: #c8e6c9; } /* Verde */
+        .amarillo { background-color: #fff9c4; } /* Amarillo */
+        .rojo { background-color: #ffcdd2; } /* Rojo */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 8px; text-align: left; border: 1px solid #ddd; }
+        th { cursor: pointer; background-color: #f4f4f4; }
+    </style>
+</head>
+<body>
+    <h2>Cargar Excel para revisar stock</h2>
+    <input type="file" id="fileInput" accept=".xlsx, .xls">
+    <button id="filterButton" style="display:none;">Filtrar por stock mínimo</button>
+    <input type="text" id="searchInput" placeholder="Buscar producto..." style="display:none;">
+    <button id="clearSearch" style="display:none;">X</button>
+    <button id="resetTable" style="display:none;">Restablecer Tabla</button>
+    <p id="counter" style="display:none;"></p>
+    <table border="1" id="dataTable">
+        <thead>
+            <tr>
+                <th data-column="0">Código</th>
+                <th data-column="1">Nombre</th>
+                <th data-column="2">Descripción</th>
+                <th data-column="3">Existente</th>
+                <th data-column="4">Mínimo</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</body>
+</html>
