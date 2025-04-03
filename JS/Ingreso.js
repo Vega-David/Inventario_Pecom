@@ -27,7 +27,7 @@ function login(event) {
         if (rol === "usuario") {
             window.location.href = "Html/usuario/index.html";
         } else if (rol === "supervisor") {
-            window.location.href = "Html/supervisores/index.html";
+            window.location.href = "Html/supervisor/index.html";
         } else if (rol === "pañol") {
             window.location.href = "Html/pañol/index.html";
         } else {

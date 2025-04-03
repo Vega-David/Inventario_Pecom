@@ -127,3 +127,9 @@ function sortTableByColumn(columnIndex) {
     tbody.innerHTML = '';
     rows.forEach(row => tbody.appendChild(row));
 }
+
+import { Volver } from './volver.js'
+
+document.getElementById("btnVolver").addEventListener("click",()=>{
+    Volver()
+})
