@@ -4,7 +4,7 @@ if (!localStorage.getItem("roles")) {
     let roles = {
         "David":   { "rol": "usuario",    "pass": "1234" },
         "Juan":    { "rol": "supervisor", "pass": "1234" },
-        "Leandro": { "rol": "pañol",      "pass": "1234" }
+        "Leandro": { "rol": "paniol",      "pass": "1234" }
     };
     localStorage.setItem("roles", JSON.stringify(roles));
 }
@@ -28,8 +28,8 @@ function login(event) {
             window.location.href = "Html/usuario/index.html";
         } else if (rol === "supervisor") {
             window.location.href = "Html/supervisor/index.html";
-        } else if (rol === "pañol") {
-            window.location.href = "Html/pañol/index.html";
+        } else if (rol === "paniol") {
+            window.location.href = "Html/paniol/index.html";
         } else {
             alert("Rol no reconocido.");
         }

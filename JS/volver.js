@@ -2,8 +2,8 @@ export function Volver(){
     const params = new URLSearchParams(window.location.search);
     const rol = params.get("rol");
 
-    if (rol === "pañol") {
-        window.location.href = "/Html/pañol/index.html";
+    if (rol === "paniol") {
+        window.location.href = "/Html/paniol/index.html";
     } else if (rol === "supervisor") {
         window.location.href = "/Html/supervisor/index.html";
     } else {
