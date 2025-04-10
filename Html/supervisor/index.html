@@ -1,14 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Supervisores</title>
+  <link rel="stylesheet" href="../../Css/estiloSupervisores.css">
 </head>
 <body>
-    <h1>Soy un supervisor</h1>
-    <a href="../../index.html">Volver</a>
+  <h1 id="nombreSupervisor">¡Hola, Supervisor!</h1>
+
+  <div class="acciones">
     <a href="../pedidos.html?rol=supervisor">Revisar Pedidos</a>
     <a href="../revisarStock.html?rol=supervisor">Revisar Stock</a> 
+    <a href="../../index.html">Volver</a>
+  </div>
+
+  <script>
+    // Ejemplo dinámico si luego querés usar localStorage o backend:
+    // document.getElementById("nombreSupervisor").textContent = "¡Hola, Andrea!";
+  </script>
 </body>
 </html>

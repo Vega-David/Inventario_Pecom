@@ -1,0 +1,279 @@
+/****************************************************
+  1) Importar fuente Exo 2
+****************************************************/
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600&display=swap');
+
+/****************************************************
+  2) Variables de color y fuente
+****************************************************/
+:root {
+  --color-bg: #102B52;
+  --color-primary: #005489;
+  --color-secondary: #71CFEB;
+  --color-text: #EAEAEA;
+  --color-gray: #808080;
+  --color-red-hover: #C0392B; /* Rojo para hover de 'Volver' */
+  --font-main: 'Exo 2', sans-serif;
+}
+
+/****************************************************
+  3) Reset y estilos globales
+****************************************************/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/****************************************************
+  4) Título principal
+****************************************************/
+.titulo {
+  text-align: center;
+  margin: 1rem 0;
+  font-size: 2rem;
+  color: var(--color-secondary);
+}
+
+/****************************************************
+  5) Contenedor principal (Grid)
+****************************************************/
+.contenedor {
+  display: grid;
+  grid-template-columns: 320px 1fr; 
+  gap: 2rem;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto 2rem auto; /* Centrado y espacio al final */
+}
+
+.izquierda,
+.derecha {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+/****************************************************
+  6) Izquierda: Formulario
+****************************************************/
+#Formu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+#Formu label {
+  font-weight: 600;
+}
+
+#Formu input {
+  padding: 0.6rem;
+  border: 1px solid var(--color-gray);
+  border-radius: 4px;
+  background-color: transparent;
+  color: var(--color-text);
+  transition: border 0.3s ease;
+}
+
+#Formu input::placeholder {
+  color: var(--color-gray);
+  opacity: 0.8;
+}
+
+#Formu input:focus {
+  outline: none;
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 3px var(--color-secondary);
+}
+
+#Btn {
+  padding: 0.6rem;
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#Btn:hover {
+  background-color: var(--color-secondary);
+  color: var(--color-bg);
+  transform: scale(1.03);
+}
+
+/****************************************************
+  7) Botones comunes (Excel y Volver)
+****************************************************/
+/* Contenedor que alinea ambos botones en desktop */
+.acciones-botones {
+  display: flex;
+  gap: 1rem;
+  /* Si querés que en móvil vayan uno debajo de otro, 
+     lo hacemos con media query más abajo */
+}
+
+/* Clase base para que ambos botones tengan mismo tamaño y estilo */
+.btn-common {
+  display: inline-flex;
+  flex: 1;                 /* Se reparten espacio equitativo */
+  justify-content: center;
+  align-items: center;
+  padding: 0.6rem;
+  border-radius: 4px;
+  font-weight: 600;
+  text-decoration: none;   /* Quitar subrayado en <a> */
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Botón Excel */
+.btn-excel {
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+}
+.btn-excel:hover {
+  background-color: var(--color-secondary);
+  color: var(--color-bg);
+  transform: scale(1.03);
+}
+
+/* Botón Volver */
+.btn-exit {
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+}
+.btn-exit:hover {
+  background-color: var(--color-red-hover);
+  color: #fff;
+  transform: scale(1.03);
+}
+
+/****************************************************
+  8) Derecha: Buscador y Tabla
+****************************************************/
+.derecha h2 {
+  margin-bottom: 1rem;
+  color: var(--color-secondary);
+}
+.derecha h3 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.2rem;
+  color: var(--color-text);
+}
+
+.buscador {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid var(--color-gray);
+  border-radius: 4px;
+  background-color: transparent;
+  color: var(--color-text);
+  transition: border 0.3s ease;
+}
+
+.buscador::placeholder {
+  color: #fff;         
+  opacity: 0.8;        
+}
+
+.buscador:focus {
+  outline: none;
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 3px var(--color-secondary);
+}
+
+/****************************************************
+  9) Tabla
+****************************************************/
+.tabla-contenedor {
+  margin-top: 1rem;
+  overflow-x: auto; /* Para scroll horizontal si se requiere */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;  /* Evita columnas hiper-comprimidas */
+}
+
+th, td {
+  padding: 0.8rem;
+  border-bottom: 1px solid var(--color-gray);
+  text-align: center;
+  vertical-align: middle; /* Centrado vertical en celdas */
+  white-space: nowrap;    /* Mantiene todo en una línea, 
+                             si se extiende, scroll horizontal. */
+}
+
+thead th {
+  font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/****************************************************
+  10) Botones de Acciones en la tabla
+****************************************************/
+.btn-accion {
+  display: inline-block;         /* Asegura que no salte de línea */
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 0.3rem 0.6rem;
+  margin: 0 0.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.btn-accion:hover {
+  background-color: var(--color-secondary);
+  color: var(--color-bg);
+}
+
+/****************************************************
+  11) Responsive
+****************************************************/
+@media (max-width: 800px) {
+  .contenedor {
+    grid-template-columns: 1fr; /* Todo en 1 columna */
+  }
+  .izquierda, .derecha {
+    margin-bottom: 2rem;
+  }
+
+  /* Botones en .acciones-botones uno debajo de otro en pantallas pequeñas */
+  .acciones-botones {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 600px) {
+  .titulo {
+    font-size: 1.5rem;
+  }
+  #Formu input {
+    font-size: 0.95rem;
+  }
+  .btn-common {
+    font-size: 0.95rem;
+  }
+  th, td {
+    font-size: 0.85rem;
+  }
+}

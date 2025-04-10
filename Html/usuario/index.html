@@ -1,13 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Usuario</title>
+  <link rel="stylesheet" href="../../Css/estiloIndexUsuario.css">
 </head>
 <body>
-    <h1>Soy un usuario</h1>
+  <h1 id="nombreUsuario">¡Hola, Usuario!</h1>
+
+  <div class="acciones">
+    <a href="generarPedidos.html">Hacer pedido</a>
     <a href="../../index.html">Volver</a>
-    <a href="generarPedidos.html">Hacer pedido!</a>
+  </div>
+
+  <script>
+    // Ejemplo dinámico si más adelante lo conectás con JS:
+    // document.getElementById("nombreUsuario").textContent = "¡Hola, Juan!";
+  </script>
 </body>
 </html>

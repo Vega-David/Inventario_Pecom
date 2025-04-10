@@ -36,4 +36,13 @@ document.getElementById("registroForm").addEventListener("submit", function(e) {
     // Redireccionar a ingreso.html
     window.location.href = "ingreso.html";
   });
+
+  function togglePasswordVisibility(inputId, buttonElement) {
+    const input = document.getElementById(inputId);
+    const isPassword = input.type === 'password';
+    
+    input.type = isPassword ? 'text' : 'password';
+    buttonElement.textContent = isPassword ? '🙈' : '👁️'; // Alterna íconos
+  }
+  
   

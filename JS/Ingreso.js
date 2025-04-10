@@ -40,3 +40,13 @@ function login(event) {
 
 // Asumamos que tu formulario tiene id="Ingreso"
 document.getElementById("Ingreso").addEventListener("submit", login);
+
+//Funcion para visibilidad de la contraseña
+function togglePasswordVisibility(inputId, buttonElement) {
+    const input = document.getElementById(inputId);
+    const isPassword = input.type === 'password';
+    
+    input.type = isPassword ? 'text' : 'password';
+    buttonElement.textContent = isPassword ? '🙈' : '👁️'; // Alterna íconos
+  }
+  

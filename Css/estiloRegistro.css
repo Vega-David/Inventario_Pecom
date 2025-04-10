@@ -1,0 +1,199 @@
+/* =========================
+   1) Importar la fuente
+   ========================= */
+   @import url('https://fonts.googleapis.com/css2?family=Exo+2&display=swap');
+
+   /* =========================
+      2) Variables de color y fuente
+      ========================= */
+   :root {
+     --color-bg: #102B52;
+     --color-primary: #005489;
+     --color-secondary: #71CFEB;
+     --color-text: #EAEAEA;
+     --color-gray: #808080;
+     --font-main: 'Exo 2', sans-serif;
+   }
+   
+   /* =========================
+      3) Reset básico
+      ========================= */
+   * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+   }
+   
+   /* =========================
+      4) Estilos Generales
+      ========================= */
+   body {
+     font-family: var(--font-main);
+     background-color: var(--color-bg);
+     color: var(--color-text);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     min-height: 100vh;
+     padding: 1rem;
+   }
+   
+   /* =========================
+      5) Contenedor Principal
+      ========================= */
+   .container {
+     background-color: rgba(255, 255, 255, 0.05);
+     padding: 2rem;
+     border-radius: 12px;
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+     width: 100%;
+     max-width: 400px;
+     text-align: center;
+   }
+   
+   /* Título principal */
+   .titulo {
+     font-size: 1.8rem;
+     margin-bottom: 1.5rem;
+     color: var(--color-secondary);
+   }
+   
+   /* =========================
+      6) Formulario
+      ========================= */
+   form {
+     width: 100%;
+     text-align: left;
+   }
+   
+   /* Agrupación de cada campo (label + input) */
+   .form-group {
+     margin-bottom: 1rem;
+   }
+   
+   /* Label */
+   label {
+     display: block;
+     margin-bottom: 0.3rem;
+     font-weight: bold;
+     font-size: 0.95rem;
+     color: var(--color-text);
+   }
+   
+   /* =========================
+      7) Inputs y Contenedor para botón toggle
+      ========================= */
+   .campo-contenedor {
+     position: relative;
+   }
+   
+   input[type="text"],
+   input[type="password"] {
+     width: 100%;
+     padding: 0.7rem;
+     padding-right: 3rem; /* Espacio para el botón toggle */
+     border: 1px solid var(--color-gray);
+     border-radius: 6px;
+     background-color: transparent;
+     color: var(--color-text);
+     transition: all 0.3s ease;
+     font-size: 1rem;
+   }
+   
+   input[type="text"]::placeholder,
+   input[type="password"]::placeholder {
+     color: var(--color-gray);
+   }
+   
+   input[type="text"]:focus,
+   input[type="password"]:focus {
+     outline: none;
+     border-color: var(--color-secondary);
+     box-shadow: 0 0 5px var(--color-secondary);
+     background-color: rgba(255,255,255,0.05);
+   }
+   
+   /* =========================
+      8) Botón para Registrar
+      ========================= */
+   .btn-submit {
+     width: 100%;
+     padding: 0.7rem;
+     background-color: var(--color-primary);
+     color: #fff;
+     border: none;
+     border-radius: 6px;
+     cursor: pointer;
+     transition: all 0.3s ease;
+     font-size: 1rem;
+     font-weight: bold;
+     margin-top: 1rem;
+   }
+   
+   .btn-submit:hover {
+     background-color: var(--color-secondary);
+     color: var(--color-bg);
+     transform: translateY(-2px);
+     box-shadow: 0 4px 8px rgba(113, 207, 235, 0.3);
+   }
+   
+   /* =========================
+      9) Botón de mostrar/ocultar contraseña
+      ========================= */
+   .btn-toggle {
+     position: absolute;
+     top: 50%;
+     right: 0.5rem;
+     transform: translateY(-50%);
+     background: none;
+     border: none;
+     font-size: 1.2rem;
+     cursor: pointer;
+     color: var(--color-secondary);
+     transition: color 0.3s ease;
+   }
+   
+   .btn-toggle:hover {
+     color: white;
+   }
+   
+   /* =========================
+      10) Enlace para volver al Login
+      ========================= */
+   .link-volver {
+     display: block;
+     margin-top: 1rem;
+     color: var(--color-secondary);
+     text-decoration: none;
+     transition: color 0.3s ease;
+     text-align: center;
+   }
+   
+   .link-volver:hover {
+     color: white;
+   }
+   
+   /* =========================
+      11) Responsive
+      ========================= */
+   @media (max-width: 600px) {
+     .container {
+       padding: 1.5rem;
+       max-width: 90%;
+     }
+     
+     .titulo {
+       font-size: 1.5rem;
+     }
+   
+     input[type="text"],
+     input[type="password"] {
+       padding: 0.6rem;
+     }
+   
+     .btn-submit {
+       padding: 0.6rem;
+       font-size: 0.95rem;
+     }
+   }
+   

@@ -1,18 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ingreso</title>
+    <link rel="stylesheet" href="Css/estiloIndex.css">
 </head>
 <body>
-    <h1>Ingreso</h1>
-    <form id="Ingreso">
-        <input type="text" id="nombreUsuario" placeholder="Nombre de Usuario">
-        <input type="password" id="pass" placeholder="Contraseña">
-        <input type="submit">
-    </form>
-    <a href="Registro.html"><button>Registrarme Ahora!</button></a>
+    <div class="grid">
+        <h1 class="titulo">Pedidos Pañol</h1>
+        <h2 class="subtitulo">CERRO DRAGON</h2>
+        <form id="Ingreso" class="formulario">
+            <h3>Ingrese al sistema</h3>
+            <input class="campo" type="text" id="nombreUsuario" placeholder="Ingrese su Nombre de Usuario">
+            <div class="campo-contenedor">
+                <input class="campo" type="password" id="pass" placeholder="Ingrese su Contraseña">
+                <button type="button" class="btn-toggle" onclick="togglePasswordVisibility('pass', this)">👁️</button>
+            </div>              
+            <input class="ingresar" type="submit" value="Ingresar">
+            <p id="olvido"><a href="#">¿Olvidaste tu contraseña?</a></p>
+            <hr>
+            <p><a href="Registro.html">Registrate Ahora!</a></p>
+        </form>
+        
+    </div>
     <script src="JS/Ingreso.js"></script>
 </body>
 </html>

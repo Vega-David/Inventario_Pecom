@@ -1,47 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ingreso de Productos</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ingreso de Productos</title>
+  <link rel="stylesheet" href="../../Css/estiloRelevamiento.css">
 </head>
 <body>
-    <h1>Ingresos al pañol</h1>
-    <form id="Formu">
-        <label for="Codigo">Codigo de SAP:</label>
-        <input type="number" id="Codigo" placeholder="Codigo de SAP"><br>
-        <label for="Nombre">Nombre de Herramienta</label>
-        <input type="text" id="Nombre" placeholder="Nombre"><br>
-        <label for="Descripcion">Descripcion</label>
-        <input type="text" id="Descripcion" placeholder="Descripcion"><br>
-        <label for="Existente">Cantidad Existente</label>
-        <input type="number" id="Existente" placeholder="Cantidad existente en stock"><br>
-        <label for="Minimo">Minimo</label>
-        <input type="number" id="Minimo" placeholder="Minimo que debe haber en stock"><br>
-        <button id="Btn">Agregar Producto</button><br><br>
-    </form>
-    <h2>Productos a Agregar</h2>
+  <!-- Título principal -->
+  <h1 class="titulo">Ingresos al Pañol</h1>
 
-    <input type="text" id="buscador" placeholder="Buscar Código de SAP">    
+  <div class="contenedor">
+    <!-- Sección Izquierda: Formulario + Botones -->
+    <div class="izquierda">
+      <form id="Formu">
+        <label for="Codigo">Código de SAP:</label>
+        <input type="number" id="Codigo" placeholder="Código de SAP">
 
-    <table id="Relevamiento" border="1">
-        <thead>
+        <label for="Nombre">Nombre de Herramienta:</label>
+        <input type="text" id="Nombre" placeholder="Nombre">
+
+        <label for="Descripcion">Descripción:</label>
+        <input type="text" id="Descripcion" placeholder="Descripción">
+
+        <label for="Existente">Cantidad Existente:</label>
+        <input type="number" id="Existente" placeholder="Cantidad en stock">
+
+        <label for="Minimo">Mínimo:</label>
+        <input type="number" id="Minimo" placeholder="Mínimo en stock">
+
+        <button id="Btn" type="button">Agregar Producto</button>
+      </form>
+
+      <!-- Contenedor de botones para Excel y Volver -->
+      <div class="acciones-botones">
+        <button id="Excel" class="btn-common btn-excel">Generar Excel</button>
+        <a href="index.html" class="btn-common btn-exit">Volver</a>
+      </div>
+    </div>
+
+    <!-- Sección Derecha: Buscador y Tabla -->
+    <div class="derecha">
+      <h2>Buscador de Productos</h2>
+      <input type="text" id="buscador" class="buscador" placeholder="Buscar Código de SAP...">
+
+      <h3>Productos a Agregar</h3>
+      <div class="tabla-contenedor">
+        <table id="Relevamiento">
+          <thead>
             <tr>
-                <th>ID</th>
-                <th>Codigo de SAP</th>
-                <th>Nombre</th>
-                <th>Descripcion</th>
-                <th>Cantidad Existente</th>
-                <th>Cantidad Minima</th>
+              <th>ID</th>
+              <th>Código de SAP</th>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Cant. Existente</th>
+              <th>Cant. Mínima</th>
+              <th>Acciones</th>
             </tr>
-        </thead>
-        <tbody>
-            <!-- Las filas se agregarán dinámicamente aquí -->
-        </tbody> 
-    </table><br><br>
-    <button id="Excel">Generar Excel</button>
-    <a href="index.html"><button>VOLVER</button></a>
-    <script type="module" src="../../JS/relevamiento.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+          </thead>
+          <tbody>
+            <!-- Filas generadas dinámicamente -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Librería XLSX -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <!-- Tu lógica principal en JS -->
+  <script type="module" src="../../JS/relevamiento.js"></script>
 </body>
 </html>

@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #102B52;
+  color: #EAEAEA;
+  font-family: 'Exo 2', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #71CFEB;
+}
+
+.acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  width: 80%;
+  max-width: 300px;
+}
+
+.acciones a {
+  text-decoration: none;
+  background-color: #005489;
+  color: #EAEAEA;
+  padding: 12px;
+  border-radius: 12px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-weight: 600;
+}
+
+.acciones a:hover {
+  background-color: #71CFEB;
+  color: #102B52;
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .acciones a {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+}
