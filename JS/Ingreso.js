@@ -1,10 +1,9 @@
-// Verificar si ya existe el objeto en localStorage; de lo contrario, inicializarlo.
+// Verificar si ya existe el objeto en localStorage; de lo contrario, inicializarlo
 if (!localStorage.getItem("roles")) {
-    // Usaremos la opción de objeto con el nombre de usuario como clave.
-    let roles = {
+    const roles = {
         "David":   { "rol": "usuario",    "pass": "1234" },
         "Juan":    { "rol": "supervisor", "pass": "1234" },
-        "Leandro": { "rol": "paniol",      "pass": "1234" }
+        "Leandro": { "rol": "paniol",     "pass": "1234" }
     };
     localStorage.setItem("roles", JSON.stringify(roles));
 }
@@ -13,40 +12,51 @@ if (!localStorage.getItem("roles")) {
 function login(event) {
     event.preventDefault(); // Prevenir el envío del formulario
 
-    // Obtener valores del formulario
-    const username = document.getElementById("nombreUsuario").value;
-    const pass = document.getElementById("pass").value;
+    // Obtener y limpiar valores del formulario
+    let username = document.getElementById("nombreUsuario").value.trim();
+    const pass = document.getElementById("pass").value.trim();
 
-    // Recuperar objeto roles del localStorage
+    // Capitalizar el nombre (primera letra mayúscula, resto minúscula)
+    username = username.charAt(0).toUpperCase() + username.slice(1).toLowerCase();
+
     const roles = JSON.parse(localStorage.getItem("roles"));
 
-    // Verificar si el usuario existe y la pass es "1234"
+    console.log("Intentando login con:", username);
+    console.log("Roles guardados:", roles);
+
+    // Verificar si el usuario existe y la contraseña coincide
     if (roles[username] && pass === roles[username].pass) {
-        // Según el rol, redireccionar a diferentes páginas
         const rol = roles[username].rol;
-        if (rol === "usuario") {
-            window.location.href = "Html/usuario/index.html";
-        } else if (rol === "supervisor") {
-            window.location.href = "Html/supervisor/index.html";
-        } else if (rol === "paniol") {
-            window.location.href = "Html/paniol/index.html";
-        } else {
-            alert("Rol no reconocido.");
+        switch (rol) {
+            case "usuario":
+                window.location.href = "Html/usuario/index.html";
+                break;
+            case "supervisor":
+                window.location.href = "Html/supervisor/index.html";
+                break;
+            case "paniol":
+                window.location.href = "Html/paniol/index.html";
+                break;
+            default:
+                alert("Rol no reconocido.");
+                break;
         }
     } else {
-        alert("Usuario o contraseña incorrecta");
+        alert("Usuario o contraseña incorrecta.");
     }
 }
 
-// Asumamos que tu formulario tiene id="Ingreso"
+// Asignar evento al formulario
 document.getElementById("Ingreso").addEventListener("submit", login);
 
-//Funcion para visibilidad de la contraseña
+// Función para visibilidad de la contraseña
 function togglePasswordVisibility(inputId, buttonElement) {
     const input = document.getElementById(inputId);
     const isPassword = input.type === 'password';
-    
+
     input.type = isPassword ? 'text' : 'password';
-    buttonElement.textContent = isPassword ? '🙈' : '👁️'; // Alterna íconos
-  }
-  
+    buttonElement.textContent = isPassword ? '🙈' : '👁️';
+}
+
+// (Opcional) Si querés resetear localStorage manualmente en pruebas
+// localStorage.removeItem("roles");

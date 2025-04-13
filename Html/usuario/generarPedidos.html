@@ -1,15 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generar Pedidos</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Realiza tu Pedido</title>
+  <link rel="stylesheet" href="../../Css/estiloGenerarPedido.css">
 </head>
 <body>
-    <h1>Generar Pedidos</h1>
-    <i>En esta seccion el usuario claramente podra hacer un pedido que llegara a un supervisor</i><br>
-    <i>El supervisor tendra la posibilidad luego en su respectivo menu Rechazar,Aceptar o modificar el pedido</i><br>
-    <i>Cuando sea aprobado el pedido pasara a la gente de pañol que lo prepara y avisara al usuario que ya puede retirarlo</i><br>
-    <a href="index.html"><button>Volver</button></a>
+  <div class="wrapper">
+    <!-- Botón para volver atrás -->
+    <button onclick="history.back()" class="btn-volver">← Volver</button>
+    
+    <!-- Título (fila 1, primeras 3 columnas) -->
+    <h1 class="header">Realiza tu Pedido</h1>
+    
+    <!-- Buscador (fila 2, primeras 3 columnas) -->
+    <div class="search">
+      <input type="text" id="buscador" class="buscador" placeholder="Buscar productos...">
+    </div>
+    
+    <!-- Contenedor de tarjetas (fila 3 en adelante, primeras 3 columnas) -->
+    <div class="cards" id="cardsContainer">
+      <!-- Aquí se generarán las tarjetas dinámicamente con JS -->
+    </div>
+    
+    <!-- Carrito (columna 4, ocupando desde fila 1 hasta el final) -->
+    <div class="cart">
+      <h2>Tu Carrito</h2>
+      <div id="cartContainer" class="cart-container"></div>
+      <button id="enviarPedido" class="btn-send">Enviar Pedido</button>
+    </div>
+    
+  </div>
+  
+  <script src="../../JS/generarPedido.js"></script>
 </body>
 </html>

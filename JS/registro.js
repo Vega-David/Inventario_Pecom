@@ -34,7 +34,7 @@ document.getElementById("registroForm").addEventListener("submit", function(e) {
     alert("Usuario registrado exitosamente!");
   
     // Redireccionar a ingreso.html
-    window.location.href = "ingreso.html";
+    window.location.href = "index.html";
   });
 
   function togglePasswordVisibility(inputId, buttonElement) {

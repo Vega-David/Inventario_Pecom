@@ -1,0 +1,281 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600&display=swap');
+
+:root {
+  --color-bg: #102B52;
+  --color-primary: #005489;
+  --color-secondary: #71CFEB;
+  --color-text: #EAEAEA;
+  --color-gray: #808080;
+  --font-main: 'Exo 2', sans-serif;
+
+  /* Colores opcionales si usás + / - en el carrito */
+  --color-plus: #27AE60;
+  --color-minus: #E74C3C;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-main);
+  min-height: 100vh;
+}
+
+/* CONTENEDOR PRINCIPAL (Grid) */
+.wrapper {
+  display: grid;
+  /* 3 columnas fijas de 280px para tarjetas + 1 columna para carrito */
+  grid-template-columns: 280px 280px 280px 1fr;
+  
+  /* 3 filas definidas + las que sean necesarias auto para tarjetas */
+  /* Pero en este caso definiremos 2 filas fijas, y la 3ra "auto" se expandirá */
+  grid-template-rows: auto auto auto; 
+  /* Podríamos usar grid-auto-rows: auto; para seguir generando más filas 
+     a medida que necesitemos. */
+  
+  grid-gap: 1rem;
+  width: 90%;
+  max-width: 1300px; /* un poco más ancho que 1200 por 3*280=840 + gaps + cart */
+  margin: 0 auto;
+  padding: 1rem 0;
+  
+  /* Para que si hay más tarjetas, se expandan en filas extras, 
+     iremos ajustando con "grid-auto-rows: auto" y "grid-row: span ..." */
+  grid-auto-rows: auto;
+  
+  /* O definimos áreas, pero en este ejemplo iremos con line-based placement */
+}
+
+/* TÍTULO (header) – fila 1, columnas 1 a 3 */
+.header {
+  grid-column: 1 / 4; /* abarca de col 1 a col 3 => +1, en total son 3 col => col 4 no, espera... 
+                       * Queremos col 1 a 4 EXCL. If we want 1 to 3 inclusive, do 1 / 4 
+                       * But that includes column 3. Actually we want it to skip column 4 
+                         which is the cart. So "1 / span 3" might be better. */
+  grid-row: 1;        /* primera fila */
+  text-align: center;
+  font-size: 2rem;
+  color: var(--color-secondary);
+  margin-bottom: 0.5rem;
+}
+
+/* BUSCADOR – fila 2, columnas 1 a 3 */
+.search {
+  grid-column: 1 / 4;
+  grid-row: 2;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+/* Este input */
+.buscador {
+  padding: 0.6rem;
+  border: 1px solid var(--color-gray);
+  border-radius: 4px;
+  background-color: transparent;
+  color: var(--color-text);
+  width: 100%;
+  max-width: 400px;
+}
+
+/* SECCIÓN TARJETAS – fila 3 en adelante, columnas 1 a 3 */
+.cards {
+  grid-column: 1 / 4; /* De col 1 a col 3, o 1 / span 3 */
+  grid-row: 3; 
+  /* Pero necesitamos que ocupe filas extra si hay muchas tarjetas => 
+     usaremos "grid-row: 3 / auto-end"? 
+     Más fácil: con "grid-auto-flow: row;" generará más filas, 
+     y las tarjetas se acomodan con flex o CSS interno. 
+     O haremos un contenedor flex dentro. 
+  */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  /* Podés alinear a la izquierda: */
+  justify-content: flex-start;
+}
+
+/* Estilo de la Tarjeta */
+.cards .card {
+  background-color: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  padding: 1rem;
+  width: 280px; 
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cards .card .fake-image {
+  width: 100%;
+  height: 140px;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.cards .card h3 {
+  font-size: 1.2rem;
+  color: var(--color-secondary);
+  margin-bottom: 0.5rem;
+}
+.cards .card p {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+.cards .card .cantidad {
+  padding: 0.4rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  border: 1px solid var(--color-primary);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--color-text);
+}
+.cards .card .agregar-btn {
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.6rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.cards .card .agregar-btn:hover {
+  background-color: var(--color-secondary);
+  transform: translateY(-2px);
+}
+
+/* CARRITO – Columna 4, fila 1 hasta el final */
+.cart {
+  grid-column: 4; /* la última col */
+  grid-row: 1 / span 3; /* desde la fila 1 hasta la 3 y más si es posible */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Carrito */
+.cart h2 {
+  text-align: center;
+  color: var(--color-secondary);
+  margin-bottom: 1rem;
+}
+.cart-container {
+  background-color: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  min-height: 200px;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+/* Items en el carrito */
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-gray);
+  padding: 0.5rem 0;
+}
+.cart-item:last-child {
+  border-bottom: none;
+}
+.cart-item span {
+  font-size: 0.9rem;
+}
+
+/* Botones + / - */
+.btn-adjust-container {
+  display: flex;
+  gap: 0.4rem;
+}
+.btn-accion {
+  display: inline-block;
+  border: none;
+  border-radius: 3px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 0.85rem;
+  color: #fff;
+}
+.btn-plus {
+  background-color: var(--color-plus);
+}
+.btn-plus:hover {
+  filter: brightness(1.1);
+}
+.btn-minus {
+  background-color: var(--color-minus);
+}
+.btn-minus:hover {
+  filter: brightness(1.1);
+}
+
+/* Botón Enviar Pedido */
+.btn-send {
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.btn-send:hover {
+  background-color: var(--color-secondary);
+  transform: translateY(-2px);
+}
+
+/* Responsivo: si la pantalla es < 1200px pero > 840, 
+   deberían caber 3 tarjetas, si no, se van a acomodar 
+   en varias filas. 
+   Si es muy pequeña (< ~900), que se apilen */
+@media (max-width: 1000px) {
+  .wrapper {
+    grid-template-columns: 1fr; /* se colapsa a 1 columna */
+    grid-template-rows: auto;
+  }
+  .header {
+    grid-column: 1;
+  }
+  .search {
+    grid-column: 1;
+  }
+  .cards {
+    grid-column: 1;
+  }
+  .cart {
+    grid-column: 1;
+    margin-top: 1rem;
+    grid-row: auto;
+  }
+}
+
+.btn-volver {
+  grid-column: 1 / 2;
+  align-self: start;
+  justify-self: start;
+  margin: 10px;
+  padding: 6px 12px;
+  background-color: #005489;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-volver:hover {
+  background-color: #003b66;
+}
