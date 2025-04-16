@@ -24,6 +24,9 @@ function login(event) {
     console.log("Intentando login con:", username);
     console.log("Roles guardados:", roles);
 
+    // Guardar el nombre de usuario en sessionStorage
+    sessionStorage.setItem("usuario", username);
+
     // Verificar si el usuario existe y la contraseña coincide
     if (roles[username] && pass === roles[username].pass) {
         const rol = roles[username].rol;

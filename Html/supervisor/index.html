@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="../../Css/estiloSupervisores.css">
 </head>
 <body>
-  <h1 id="nombreSupervisor">¡Hola, Supervisor!</h1>
+  <h1 id="nombreUsuario">¡Hola, Supervisor!</h1>
 
   <div class="acciones">
     <a href="../pedidos.html?rol=supervisor">Revisar Pedidos</a>
@@ -16,8 +16,8 @@
   </div>
 
   <script>
-    // Ejemplo dinámico si luego querés usar localStorage o backend:
-    // document.getElementById("nombreSupervisor").textContent = "¡Hola, Andrea!";
+    let sessionName=sessionStorage.getItem("usuario");
+    document.getElementById("nombreUsuario").textContent = "¡Hola, "+sessionName+"!";
   </script>
 </body>
 </html>

@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600&display=swap');
+
+:root {
+  --color-bg: #102B52;
+  --color-primary: #005489;
+  --color-secondary: #71CFEB;
+  --color-text: #EAEAEA;
+  --color-gray: #808080;
+  --font-main: 'Exo 2', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-main);
+}
+
+.wrapper {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+/* Botón Volver */
+.btn-volver {
+  display: block;
+  margin: 10px auto;
+  padding: 8px 12px;
+  background-color: var(--color-primary);
+  color: var(--color-text);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.btn-volver:hover {
+  background-color: var(--color-secondary);
+}
+
+/* Título */
+.titulo {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: var(--color-secondary);
+}
+
+/* Formulario y etiquetas */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+label {
+  font-weight: bold;
+}
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--color-gray);
+  border-radius: 8px;
+  background-color: transparent;
+  color: var(--color-text);
+}
+input::placeholder {
+  color: var(--color-gray);
+}
+
+/* Fieldset de Materiales */
+#materiales {
+  border: 1px solid var(--color-gray);
+  border-radius: 8px;
+  padding: 10px;
+}
+.material-inputs {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.material-inputs input {
+  flex: 1;
+  min-width: 100px;
+}
+#listaMateriales {
+  list-style: none;
+  margin-top: 10px;
+  padding-left: 0;
+}
+#listaMateriales li {
+  background-color: rgba(255,255,255,0.1);
+  padding: 8px;
+  border-radius: 6px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#listaMateriales li button {
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: 4px;
+  color: var(--color-text);
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background-color 0.3s ease;
+}
+#listaMateriales li button:hover {
+  background-color: var(--color-secondary);
+}
+
+/* Instrucciones para la firma */
+.instrucciones {
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: -5px;
+}
+
+/* Canvas para firma */
+.canvas-container {
+  text-align: center;
+}
+#canvasFirma {
+  border: 2px dashed var(--color-gray);
+  border-radius: 8px;
+  touch-action: none;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Botones generales */
+button {
+  background-color: var(--color-primary);
+  color: var(--color-text);
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: var(--color-secondary);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .wrapper {
+    margin: 20px;
+    padding: 15px;
+  }
+}

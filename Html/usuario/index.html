@@ -15,8 +15,8 @@
   </div>
 
   <script>
-    // Ejemplo dinámico si más adelante lo conectás con JS:
-    // document.getElementById("nombreUsuario").textContent = "¡Hola, Juan!";
+    let sessionName=sessionStorage.getItem("usuario");
+    document.getElementById("nombreUsuario").textContent = "¡Hola, "+sessionName+"!";
   </script>
 </body>
 </html>

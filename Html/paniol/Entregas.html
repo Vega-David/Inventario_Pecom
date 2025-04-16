@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formulario de Retiro de Materiales</title>
+  <link rel="stylesheet" href="../../Css/estilosEntregas.css">
+</head>
+<body>
+  <div class="wrapper">
+    <!-- Botón para volver (ubicado debajo del formulario en este ejemplo) -->
+    <button class="btn-volver" onclick="history.back()">← Volver</button>
+
+    <h1 class="titulo">Formulario de Retiro de Materiales</h1>
+
+    <form id="retiroForm">
+      <!-- Datos del Retirante -->
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" placeholder="Ingrese su nombre" required>
+
+      <label for="apellido">Apellido:</label>
+      <input type="text" id="apellido" placeholder="Ingrese su apellido" required>
+
+      <label for="documento">Documento:</label>
+      <input type="text" id="documento" placeholder="Ingrese su documento" required>
+
+      <!-- Sección de Materiales -->
+      <fieldset id="materiales">
+        <legend>Materiales a Retirar</legend>
+        <div class="material-inputs">
+          <input type="text" id="elemento" placeholder="Elemento">
+          <input type="text" id="descripcion" placeholder="Descripción">
+          <input type="number" id="cantidad" placeholder="Cantidad">
+          <button type="button" onclick="agregarMaterial()">Agregar</button>
+        </div>
+        <ul id="listaMateriales"></ul>
+      </fieldset>
+
+      <!-- Firma Digital -->
+      <h2>Firma Digital</h2>
+      <p class="instrucciones">Firme en el área a continuación (use el dedo en móvil o mouse en PC).</p>
+      <div class="canvas-container">
+        <canvas id="canvasFirma" width="500" height="200" style="width: 100%; max-width:500px; height:auto;"></canvas>
+      </div>
+      <button type="button" onclick="limpiarFirma()">Limpiar Firma</button>
+
+      <!-- Botón para generar el PDF -->
+      <button type="submit">Generar PDF</button>
+    </form>
+  </div>
+
+  <!-- Incluir jsPDF desde CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="../../JS/Entregas.js"></script>
+</body>
+</html>

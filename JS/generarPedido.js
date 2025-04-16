@@ -1,13 +1,4 @@
-// Si no existe "stock" en localStorage, inicializa con datos de ejemplo
 let stock = JSON.parse(localStorage.getItem("stock"));
-if (!stock) {
-  stock = [
-    { id: 1, codigoSap: 1001, nombre: "Taladro", descripcion: "Taladro inalámbrico", cantidad: 10, minimo: 2 },
-    { id: 2, codigoSap: 1002, nombre: "Martillo", descripcion: "Martillo de goma", cantidad: 15, minimo: 3 },
-    { id: 3, codigoSap: 1003, nombre: "Sierra", descripcion: "Sierra circular", cantidad: 5, minimo: 1 }
-  ];
-  localStorage.setItem("stock", JSON.stringify(stock));
-}
 
 const cardsContainer = document.getElementById("cardsContainer");
 const cartContainer = document.getElementById("cartContainer");

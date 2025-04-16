@@ -10,10 +10,22 @@
     <h1 id="nombreUsuario">¡Hola, Pañol!</h1>
 
     <div class="acciones">
+        <a href="Entregas.html">Realizar Entrega</a>
         <a href="Relevamiento.html">Hacer Relevamiento</a>
         <a href="../pedidos.html?rol=paniol">Revisar Pedidos</a>
         <a href="../revisarStock.html?rol=paniol">Revisar Stock</a> 
         <a href="../../index.html">Volver</a>
     </div>
+    <script>
+        let sessionName=sessionStorage.getItem("usuario");
+        if (!sessionName) {
+            // Redirigir a la página de login o a otra URL específica
+            window.location.href = "../../index.html";
+        }
+        else{
+            document.getElementById("nombreUsuario").textContent = "¡Hola, "+sessionName+"!";
+        }
+
+    </script>
 </body>
 </html>
