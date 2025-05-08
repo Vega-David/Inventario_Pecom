@@ -1,14 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pedidos</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestión de Pedidos</title>
+  <link rel="stylesheet" href="../Css/stylesOrders.css">
 </head>
 <body>
+  <!-- Botón Volver global -->
+  <button class="btn-volver" onclick="history.back()">← Volver</button>
+
+  <!-- Contenedor de tarjetas -->
+  <div class="view">
     <h1>Pedidos</h1>
-    <i>Podra visualizar los pedidos que hay y sus respectivos estados</i>
-    <button id="btnVolver">Volver</button>
-    <script src="../JS/volver.js" type="module"></script>
+    <div id="cardsContainer" class="cards-container"></div>
+  </div>
+
+  <!-- Modal de detalle -->
+  <div id="orderModal" class="modal">
+    <div class="modal-content">
+      <button id="modalClose" class="btn-close">✕</button>
+      <h2 id="detailTitle"></h2>
+      <p><strong>Usuario:</strong> <span id="detailUser"></span></p>
+      <p><strong>Fecha:</strong>  <span id="detailDate"></span></p>
+      <p><strong>Estado:</strong> <span id="detailState"></span></p>
+
+      <h3>Items</h3>
+      <table id="detailTable">
+        <thead>
+          <tr>
+            <th>Elemento</th><th>Descripción</th><th>Cantidad</th><th class="col-edit">Editar</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <div class="actions">
+        <button id="btnModify"  class="btn">Modificar Items</button>
+        <button id="btnApprove" class="btn">Aprobar</button>
+        <button id="btnReject"  class="btn">Rechazar</button>
+        <button id="btnPrepare" class="btn">Marcar Preparado</button>
+        <button id="btnDeliver" class="btn">Marcar Entregado</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../JS/orders.js"></script>
 </body>
 </html>

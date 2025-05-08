@@ -26,18 +26,22 @@ function login(event) {
 
     // Guardar el nombre de usuario en sessionStorage
     sessionStorage.setItem("usuario", username);
+    
 
     // Verificar si el usuario existe y la contraseña coincide
     if (roles[username] && pass === roles[username].pass) {
         const rol = roles[username].rol;
         switch (rol) {
             case "usuario":
+                sessionStorage.setItem("rol","usuario")
                 window.location.href = "Html/usuario/index.html";
                 break;
             case "supervisor":
+                sessionStorage.setItem("rol","supervisor")
                 window.location.href = "Html/supervisor/index.html";
                 break;
             case "paniol":
+                sessionStorage.setItem("rol","paniol")
                 window.location.href = "Html/paniol/index.html";
                 break;
             default:

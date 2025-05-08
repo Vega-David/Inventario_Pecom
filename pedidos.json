@@ -1,0 +1,149 @@
+[
+  {
+    "id": 1,
+    "fecha": "2025-04-18",
+    "estado": "Pendiente",
+    "usuario": {
+      "nombre": "Carlos Méndez",
+      "cuadrilla": "614",
+      "sector": "Sub-estaciones"
+    },
+    "productos": [
+      {
+        "elemento": "Casco",
+        "descripcion": "Casco de seguridad con suspensión regulable",
+        "cantidad": 2
+      },
+      {
+        "elemento": "Guantes de cuero",
+        "descripcion": "Guantes resistentes para trabajos pesados",
+        "cantidad": 1
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "fecha": "2025-04-19",
+    "estado": "Pendiente",
+    "usuario": {
+      "nombre": "Luciana Ríos",
+      "cuadrilla": "555",
+      "sector": "Instrumentación"
+    },
+    "productos": [
+      {
+        "elemento": "Tester",
+        "descripcion": "Tester digital True RMS",
+        "cantidad": 1
+      },
+      {
+        "elemento": "Destornillador aislado",
+        "descripcion": "Juego de destornilladores aislados hasta 1000V",
+        "cantidad": 1
+      },
+      {
+        "elemento": "Guantes dieléctricos",
+        "descripcion": "Guantes clase 00, norma IEC",
+        "cantidad": 1
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "fecha": "2025-04-20",
+    "estado": "Pendiente",
+    "usuario": {
+      "nombre": "Diego Fernández",
+      "cuadrilla": "625",
+      "sector": "Sub-estaciones"
+    },
+    "productos": [
+      {
+        "elemento": "Llave ajustable",
+        "descripcion": "Llave de 12 pulgadas",
+        "cantidad": 1
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "fecha": "2025-04-20",
+    "estado": "Pendiente",
+    "usuario": {
+      "nombre": "Marina Soto",
+      "cuadrilla": "555A",
+      "sector": "Instrumentación"
+    },
+    "productos": [
+      {
+        "elemento": "Multímetro",
+        "descripcion": "Multímetro digital con pinza amperométrica",
+        "cantidad": 1
+      },
+      {
+        "elemento": "Cinta aisladora",
+        "descripcion": "Cinta 3M autoextinguible",
+        "cantidad": 3
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "fecha": "2025-04-17",
+    "estado": "Pendiente",
+    "usuario": {
+      "nombre": "Sergio Luna",
+      "cuadrilla": "614",
+      "sector": "Sub-estaciones"
+    },
+    "productos": [
+      {
+        "elemento": "Arnés de seguridad",
+        "descripcion": "Arnés de cuerpo completo con líneas de vida",
+        "cantidad": 1
+      },
+      {
+        "elemento": "Lentes de seguridad",
+        "descripcion": "Lentes con filtro UV y antirayaduras",
+        "cantidad": 2
+      },
+      {
+        "elemento": "Linterna",
+        "descripcion": "Linterna LED recargable",
+        "cantidad": 1
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "fecha": "2025-04-16",
+    "estado": "Pendiente",
+    "usuario": {
+      "nombre": "Paula Giménez",
+      "cuadrilla": "625",
+      "sector": "Sub-estaciones"
+    },
+    "productos": [
+      {
+        "elemento": "Cinturón porta herramientas",
+        "descripcion": "Cinturón de lona con múltiples bolsillos",
+        "cantidad": 1
+      },
+      {
+        "elemento": "Cinta métrica",
+        "descripcion": "Cinta métrica de 5 metros",
+        "cantidad": 1
+      },
+      {
+        "elemento": "Guantes de nitrilo",
+        "descripcion": "Guantes desechables resistentes a químicos",
+        "cantidad": 2
+      },
+      {
+        "elemento": "Barbijos",
+        "descripcion": "Caja de barbijos descartables",
+        "cantidad": 1
+      }
+    ]
+  }
+]

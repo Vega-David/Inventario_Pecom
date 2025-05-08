@@ -1,90 +1,89 @@
-let stock = JSON.parse(localStorage.getItem("stock"));
+let Stock = JSON.parse(localStorage.getItem("Stock"));
 
 const cardsContainer = document.getElementById("cardsContainer");
 const cartContainer = document.getElementById("cartContainer");
 const buscador = document.getElementById("buscador");
 const enviarPedidoBtn = document.getElementById("enviarPedido");
 
-// Array para almacenar los ítems del carrito
 let carrito = [];
 
-// Función para renderizar las tarjetas de productos
 function renderCards(products) {
   cardsContainer.innerHTML = "";
   products.forEach(product => {
     const card = document.createElement("div");
     card.className = "card";
 
-     // Creación del recuadro fake-image
+    // Identificador único: id || codigoSap || índice en Stock
+    const stockIndex = Stock.findIndex(p => p === product);
+    const productId = product.id !== undefined
+      ? product.id
+      : (product.codigoSap !== undefined
+         ? product.codigoSap
+         : stockIndex);
+
     const fakeImage = document.createElement("div");
     fakeImage.className = "fake-image";
     fakeImage.style.backgroundColor = getRandomColor();
     card.appendChild(fakeImage);
-    
+
     const titulo = document.createElement("h3");
     titulo.textContent = product.nombre;
     card.appendChild(titulo);
-    
+
+    const codigoSapText = product.codigoSap || "no se cuenta todavia con el codigo";
     const info = document.createElement("p");
-    info.innerHTML = `<strong>Código SAP:</strong> ${product.codigoSap}<br>
+    info.innerHTML = `<strong>Código SAP:</strong> ${codigoSapText}<br>
                       <strong>Descripción:</strong> ${product.descripcion}<br>
-                      <strong>Stock:</strong> ${product.cantidad}`;
+                      <strong>Stock:</strong> ${product.existente}`;
     card.appendChild(info);
-    
-    // Input para cantidad a agregar
+
     const inputCantidad = document.createElement("input");
     inputCantidad.type = "number";
-    inputCantidad.min = "1";
-    inputCantidad.max = product.cantidad;
+    inputCantidad.min = 1;
+    inputCantidad.max = product.existente;
     inputCantidad.placeholder = "Cantidad a agregar";
     inputCantidad.className = "cantidad";
     card.appendChild(inputCantidad);
-    
-    // Botón "Agregar a pedido"
+
     const btnAgregar = document.createElement("button");
     btnAgregar.textContent = "Agregar a pedido";
     btnAgregar.className = "agregar-btn";
     btnAgregar.addEventListener("click", () => {
-      const cantidad = parseInt(inputCantidad.value);
+      const cantidad = parseInt(inputCantidad.value, 10);
       if (!cantidad || cantidad <= 0) {
         alert("Ingrese una cantidad válida.");
         return;
       }
-      if (cantidad > product.cantidad) {
+      if (cantidad > product.existente) {
         alert("No hay suficiente stock disponible.");
         return;
       }
-      // Descontar inmediatamente del stock
-      product.cantidad -= cantidad;
-      localStorage.setItem("stock", JSON.stringify(stock));
-      
-      // Agregar al carrito o acumular si ya existe
-      const index = carrito.findIndex(item => item.id === product.id);
-      if (index !== -1) {
-        carrito[index].cantidadAgregada += cantidad;
+      product.existente -= cantidad;
+      localStorage.setItem("Stock", JSON.stringify(Stock));
+
+      const idx = carrito.findIndex(item => item.id === productId);
+      if (idx !== -1) {
+        carrito[idx].cantidadAgregada += cantidad;
       } else {
         carrito.push({
-          id: product.id,
-          codigoSap: product.codigoSap,
+          id: productId,
           nombre: product.nombre,
           descripcion: product.descripcion,
           cantidadAgregada: cantidad
         });
       }
       inputCantidad.value = "";
-      renderCards(products);
+      renderCards(Stock);
       renderCart();
     });
     card.appendChild(btnAgregar);
-    
+
     cardsContainer.appendChild(card);
   });
 }
 
-// Renderizar las tarjetas inicialmente
-renderCards(stock);
+renderCards(Stock);
 
-// Función para mostrar los ítems del carrito, ahora con botones "+" y "–"
 function renderCart() {
   cartContainer.innerHTML = "";
   if (carrito.length === 0) {
@@ -94,112 +93,115 @@ function renderCart() {
   carrito.forEach(item => {
     const div = document.createElement("div");
     div.className = "cart-item";
-    
-    // Información del ítem
+
     const infoSpan = document.createElement("span");
-    infoSpan.innerHTML = `<strong>${item.nombre}</strong> (x${item.cantidadAgregada})<br>
-                          Código: ${item.codigoSap}`;
+    infoSpan.innerHTML = `<strong>${item.nombre}</strong> (x${item.cantidadAgregada})`;
     div.appendChild(infoSpan);
-    
-    // Contenedor para los botones de ajuste
+
     const btnContainer = document.createElement("div");
     btnContainer.className = "btn-adjust-container";
-    
-    // Botón "+" (aumentar)
+
     const btnPlus = document.createElement("button");
     btnPlus.textContent = "+";
     btnPlus.className = "btn-accion btn-plus";
     btnPlus.addEventListener("click", () => {
-      // Buscar el producto en el stock para validar si hay unidad disponible
-      const prod = stock.find(p => p.id === item.id);
-      if (prod.cantidad < 1) {
+      const prod = Stock.find(p => {
+        const id = p.id !== undefined ? p.id : (p.codigoSap !== undefined ? p.codigoSap : Stock.indexOf(p));
+        return id === item.id;
+      });
+      if (!prod || prod.existente < 1) {
         alert("No hay más stock disponible para este producto.");
         return;
       }
-      // Incrementar cantidad en el carrito y descontar del stock
       item.cantidadAgregada++;
-      prod.cantidad--;
-      localStorage.setItem("stock", JSON.stringify(stock));
-      renderCards(stock);
+      prod.existente--;
+      localStorage.setItem("Stock", JSON.stringify(Stock));
+      renderCards(Stock);
       renderCart();
     });
     btnContainer.appendChild(btnPlus);
-    
-    // Botón "–" (disminuir)
+
     const btnMinus = document.createElement("button");
     btnMinus.textContent = "–";
     btnMinus.className = "btn-accion btn-minus";
     btnMinus.addEventListener("click", () => {
-      // Si la cantidad en el carrito es mayor que 1, se disminuye; sino se elimina el item
+      const prod = Stock.find(p => {
+        const id = p.id !== undefined ? p.id : (p.codigoSap !== undefined ? p.codigoSap : Stock.indexOf(p));
+        return id === item.id;
+      });
       if (item.cantidadAgregada > 1) {
         item.cantidadAgregada--;
-        // Al disminuir, se devuelve 1 unidad al stock
-        const prod = stock.find(p => p.id === item.id);
-        prod.cantidad++;
+        if (prod) prod.existente++;
       } else {
-        // Si se elimina el último, se devuelve esa unidad y se quita el item del carrito
-        const prod = stock.find(p => p.id === item.id);
-        prod.cantidad++;
+        if (prod) prod.existente++;
         carrito = carrito.filter(i => i.id !== item.id);
       }
-      localStorage.setItem("stock", JSON.stringify(stock));
-      renderCards(stock);
+      localStorage.setItem("Stock", JSON.stringify(Stock));
+      renderCards(Stock);
       renderCart();
     });
     btnContainer.appendChild(btnMinus);
-    
+
     div.appendChild(btnContainer);
     cartContainer.appendChild(div);
   });
 }
 
-// Buscador dinámico: Filtra según código, nombre y descripción
 buscador.addEventListener("input", () => {
   const term = buscador.value.toLowerCase();
-  const filtered = stock.filter(product => 
-    product.codigoSap.toString().includes(term) ||
-    product.nombre.toLowerCase().includes(term) ||
-    product.descripcion.toLowerCase().includes(term)
+  const filtered = Stock.filter(p =>
+    ((p.codigoSap || "").toString().includes(term)) ||
+    p.nombre.toLowerCase().includes(term) ||
+    p.descripcion.toLowerCase().includes(term)
   );
   renderCards(filtered);
 });
 
-// Enviar pedido: Como el stock se descuenta al agregar al carrito,
-// se crea el pedido y se guarda en localStorage.
 enviarPedidoBtn.addEventListener("click", () => {
   if (carrito.length === 0) {
     alert("El carrito está vacío.");
     return;
   }
-  
-  const numeroPedido = Math.floor(Math.random() * 100000);
-  const usuario = sessionStorage.getItem("usuario") || "UsuarioDesconocido";
-  const fechaActual = new Date().toISOString();
+  let pedidosGuardados = JSON.parse(localStorage.getItem("ordersTest")) || [];
+  const existingIds = pedidosGuardados.map(o => Number(o.id) || 0);
+  const maxId = existingIds.length ? Math.max(...existingIds) : 0;
+  const nuevoId = maxId + 1;
+  const fechaActual = new Date().toISOString().split('T')[0];
+  let usuario;
+  try {
+    usuario = JSON.parse(sessionStorage.getItem("usuario"));
+  } catch {
+    usuario = { nombre: "Usuario", apellido: "Desconocido" };
+  }
+  const productosFormateados = carrito.map(item => ({
+    elemento: item.nombre,
+    descripcion: item.descripcion,
+    cantidad: item.cantidadAgregada
+  }));
+
   const pedidoFinal = {
-    numeroPedido,
-    usuario,
+    id: nuevoId,
     fecha: fechaActual,
-    estado: 0,  // 0: Esperando aprobación
-    productos: carrito
+    estado: "Pendiente",
+    usuario: usuario,
+    productos: productosFormateados
   };
 
-  let pedidosGuardados = JSON.parse(localStorage.getItem("pedidos")) || [];
   pedidosGuardados.push(pedidoFinal);
-  localStorage.setItem("pedidos", JSON.stringify(pedidosGuardados));
-  
+  localStorage.setItem("ordersTest", JSON.stringify(pedidosGuardados));
+
   console.log("Pedido enviado:", pedidoFinal);
-  alert(`Pedido #${numeroPedido} enviado para aprobación.`);
-  
+  alert(`Pedido #${nuevoId} enviado para aprobación.`);
+
   carrito = [];
   renderCart();
 });
 
 function getRandomColor() {
-    // Por ejemplo, un color aleatorio en formato #RRGGBB
-    let letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+  let letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
   }
+  return color;
+}
