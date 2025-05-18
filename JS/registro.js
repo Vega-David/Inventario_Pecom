@@ -3,6 +3,7 @@ document.getElementById("registroForm").addEventListener("submit", function(e) {
   
     // Obtener valores del formulario
     const username = document.getElementById("username").value.trim();
+    const apellido = document.getElementById("apellido").value.trim();
     const pass = document.getElementById("pass").value;
     const confirmPass = document.getElementById("confirmPass").value;
   
@@ -25,7 +26,9 @@ document.getElementById("registroForm").addEventListener("submit", function(e) {
     // Crear el nuevo usuario con rol por defecto "usuario"
     roles[username] = {
       rol: "usuario",
-      pass: pass
+      pass: pass,
+      nombre:username,
+      apellido:apellido
     };
   
     // Guardar el objeto actualizado en localStorage

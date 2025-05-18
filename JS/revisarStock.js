@@ -128,8 +128,8 @@ function sortTableByColumn(columnIndex) {
     rows.forEach(row => tbody.appendChild(row));
 }
 
-import { Volver } from './volver.js'
 
-document.getElementById("btnVolver").addEventListener("click",()=>{
-    Volver()
-})
+document.getElementById("btnVolver").addEventListener("click", () => {
+    history.back();
+  });
+  

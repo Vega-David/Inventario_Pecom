@@ -13,7 +13,6 @@ function renderCards(products) {
     const card = document.createElement("div");
     card.className = "card";
 
-    // Identificador único: id || codigoSap || índice en Stock
     const stockIndex = Stock.findIndex(p => p === product);
     const productId = product.id !== undefined
       ? product.id
@@ -81,8 +80,6 @@ function renderCards(products) {
     cardsContainer.appendChild(card);
   });
 }
-
-renderCards(Stock);
 
 function renderCart() {
   cartContainer.innerHTML = "";
@@ -167,23 +164,20 @@ enviarPedidoBtn.addEventListener("click", () => {
   const maxId = existingIds.length ? Math.max(...existingIds) : 0;
   const nuevoId = maxId + 1;
   const fechaActual = new Date().toISOString().split('T')[0];
-  let usuario;
-  try {
-    usuario = JSON.parse(sessionStorage.getItem("usuario"));
-  } catch {
-    usuario = { nombre: "Usuario", apellido: "Desconocido" };
-  }
+  const datosUsuario= JSON.parse(sessionStorage.getItem("Datos"))
+
   const productosFormateados = carrito.map(item => ({
     elemento: item.nombre,
     descripcion: item.descripcion,
-    cantidad: item.cantidadAgregada
+    cantidad: item.cantidadAgregada,
+    usuario: {nombre:datosUsuario.usuario,apellido:datosUsuario.apellido}
   }));
 
   const pedidoFinal = {
     id: nuevoId,
     fecha: fechaActual,
     estado: "Pendiente",
-    usuario: usuario,
+    usuario: {nombre:datosUsuario.usuario,apellido:datosUsuario.apellido},
     productos: productosFormateados
   };
 
@@ -196,6 +190,8 @@ enviarPedidoBtn.addEventListener("click", () => {
   carrito = [];
   renderCart();
 });
+
+renderCards(Stock);
 
 function getRandomColor() {
   let letters = '0123456789ABCDEF';

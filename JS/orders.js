@@ -2,11 +2,11 @@
 // Pedidos de prueba
 // ------------------------------
 const SAMPLE_ORDERS = [
-  {id:1,fecha:"2025-04-18",estado:"Pendiente", usuario:{nombre:"Carlos",apellido:"Méndez"}, productos:[
+  {id:1,fecha:"2025-04-18",estado:"Aprobado", usuario:{nombre:"Carlos",apellido:"Méndez"}, productos:[
       {elemento:"Casco",descripcion:"Casco de seguridad",cantidad:2},
       {elemento:"Guantes de cuero",descripcion:"Resistentes",cantidad:1}
   ]},
-  {id:2,fecha:"2025-04-19",estado:"Pendiente", usuario:{nombre:"Luciana",apellido:"Ríos"}, productos:[
+  {id:2,fecha:"2025-04-19",estado:"Entregado", usuario:{nombre:"Luciana",apellido:"Ríos"}, productos:[
       {elemento:"Tester",descripcion:"True RMS",cantidad:1},
       {elemento:"Destornillador aislado",descripcion:"Hasta 1000V",cantidad:1},
       {elemento:"Guantes dieléctricos",descripcion:"Clase 00",cantidad:1}
@@ -14,7 +14,7 @@ const SAMPLE_ORDERS = [
   {id:3,fecha:"2025-04-20",estado:"Pendiente", usuario:{nombre:"Diego",apellido:"Fernández"}, productos:[
       {elemento:"Llave ajustable",descripcion:"12 pulgadas",cantidad:1}
   ]},
-  {id:4,fecha:"2025-04-20",estado:"Pendiente", usuario:{nombre:"Marina",apellido:"Soto"}, productos:[
+  {id:4,fecha:"2025-04-20",estado:"Preparado", usuario:{nombre:"Marina",apellido:"Soto"}, productos:[
       {elemento:"Multímetro",descripcion:"Con pinza amperométrica",cantidad:1},
       {elemento:"Cinta aisladora",descripcion:"3M autoextinguible",cantidad:3}
   ]},
@@ -40,21 +40,20 @@ function loadOrders() {
 function saveOrders(arr) { localStorage.setItem("ordersTest", JSON.stringify(arr)); }
 
 let orders = loadOrders();
-const currentUser = sessionStorage.getItem("usuario");
-const currentRole = sessionStorage.getItem("rol");
-if (!currentUser || !currentRole) window.location.href = "login.html";
+const Datos=JSON.parse(sessionStorage.getItem("Datos"))
+if (!Datos.usuario || !Datos.rol) window.location.href = "../login.html";
 
 // ------------------------------
 // Filtrado según rol (incluye "Preparado")
 // ------------------------------
 function filterOrders() {
-  if (currentRole === "usuario") {
+  if (Datos.rol === "usuario") {
     return orders.filter(o =>
       `${o.usuario.nombre} ${o.usuario.apellido}` === currentUser
     );
   }
-  if (currentRole === "supervisor") return orders;
-  if (currentRole === "paniol") {
+  if (Datos.rol === "supervisor") return orders;
+  if (Datos.rol === "paniol") {
     return orders.filter(o =>
       o.estado.startsWith("Aprobado") || o.estado.startsWith("Preparado")
     );
@@ -79,7 +78,7 @@ function renderCards() {
     card.className = `card ${cls}`;
     card.innerHTML = `
       <p><strong>#${o.id}</strong></p>
-      <p>${o.usuario.nombre} ${o.usuario.apellido}</p>
+      <p>${o.usuario.nombre+' '+o.usuario.apellido}</p>
       <p>${o.fecha}</p>
       <p>Items: ${o.productos.length}</p>
       <span class="state-badge">${o.estado}</span>
@@ -117,15 +116,15 @@ function openModal(id) {
 
   // Mostrar botones según rol y estado
   document.getElementById("btnModify").style.display  =
-    (currentRole==="supervisor" && pedido.estado==="Pendiente") ? "inline-block":"none";
+    (Datos.rol==="supervisor" && pedido.estado==="Pendiente") ? "inline-block":"none";
   document.getElementById("btnApprove").style.display =
-    (currentRole==="supervisor" && pedido.estado==="Pendiente") ? "inline-block":"none";
+    (Datos.rol==="supervisor" && pedido.estado==="Pendiente") ? "inline-block":"none";
   document.getElementById("btnReject").style.display  =
-    (currentRole==="supervisor" && pedido.estado==="Pendiente") ? "inline-block":"none";
+    (Datos.rol==="supervisor" && pedido.estado==="Pendiente") ? "inline-block":"none";
   document.getElementById("btnPrepare").style.display =
-    (currentRole==="paniol" && pedido.estado.startsWith("Aprobado")) ? "inline-block":"none";
+    (Datos.rol==="paniol" && pedido.estado.startsWith("Aprobado")) ? "inline-block":"none";
   document.getElementById("btnDeliver").style.display =
-    (currentRole==="paniol" && pedido.estado.startsWith("Preparado")) ? "inline-block":"none";
+    (Datos.rol==="paniol" && pedido.estado.startsWith("Preparado")) ? "inline-block":"none";
 
   // Acciones
   document.getElementById("btnApprove").onclick = () => doApprove(id);
