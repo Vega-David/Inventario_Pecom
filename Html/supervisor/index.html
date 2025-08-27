@@ -15,25 +15,14 @@
     <a href="../../index.html">Volver</a>
   </div>
 
+  <script src="../../JS/saludo.js"></script>
   <script>
-        // Obtener el item "Datos" del sessionStorage y convertirlo de JSON a objeto JS
-            let Datos = JSON.parse(sessionStorage.getItem("Datos"));
-
-        // Verificar si "Datos" no existe o si no tiene la propiedad "usuario"
-            if (!Datos || !Datos.usuario) {
-        // Si no hay datos válidos, redirigir a la página de login
-            window.location.href = "../../index.html";
-            } else {
-        // Si existe el usuario, verificar si hay apellido para mostrarlo o no
-        // Si Datos.apellido existe, concatenar con espacio, sino cadena vacía
-            const apellido = Datos.apellido ? ` ${Datos.apellido}` : "";
-
-        // Actualizar el contenido del elemento con id "nombreUsuario"
-        // para mostrar un saludo con nombre y apellido (si existe)
-            document.getElementById("nombreUsuario").textContent = `¡Hola, ${Datos.usuario}${apellido}!`;
-            }
-
-
-    </script>
+    const Datos = JSON.parse(sessionStorage.getItem("Datos"));
+    if (!Datos || !Datos.usuario) {
+      window.location.href = "../../index.html";
+    } else {
+      mostrarSaludo("nombreUsuario");
+    }
+  </script>
 </body>
 </html>
