@@ -1,41 +1,29 @@
 // ------------------------------
 // Pedidos de prueba
 // ------------------------------
+// MARCA TEMPORAL: Cargar pedidos desde pedidos.json si existe y no hay datos en localStorage
 const SAMPLE_ORDERS = [
-  {id:1,fecha:"2025-04-18",estado:"Aprobado", usuario:{nombre:"Carlos",apellido:"Méndez"}, productos:[
-      {elemento:"Casco",descripcion:"Casco de seguridad",cantidad:2},
-      {elemento:"Guantes de cuero",descripcion:"Resistentes",cantidad:1}
-  ]},
-  {id:2,fecha:"2025-04-19",estado:"Entregado", usuario:{nombre:"Luciana",apellido:"Ríos"}, productos:[
-      {elemento:"Tester",descripcion:"True RMS",cantidad:1},
-      {elemento:"Destornillador aislado",descripcion:"Hasta 1000V",cantidad:1},
-      {elemento:"Guantes dieléctricos",descripcion:"Clase 00",cantidad:1}
-  ]},
-  {id:3,fecha:"2025-04-20",estado:"Pendiente", usuario:{nombre:"Diego",apellido:"Fernández"}, productos:[
-      {elemento:"Llave ajustable",descripcion:"12 pulgadas",cantidad:1}
-  ]},
-  {id:4,fecha:"2025-04-20",estado:"Preparado", usuario:{nombre:"Marina",apellido:"Soto"}, productos:[
-      {elemento:"Multímetro",descripcion:"Con pinza amperométrica",cantidad:1},
-      {elemento:"Cinta aisladora",descripcion:"3M autoextinguible",cantidad:3}
-  ]},
-  {id:5,fecha:"2025-04-17",estado:"Pendiente", usuario:{nombre:"Sergio",apellido:"Luna"}, productos:[
-      {elemento:"Arnés de seguridad",descripcion:"Cuerpo completo",cantidad:1},
-      {elemento:"Lentes de seguridad",descripcion:"Filtro UV",cantidad:2},
-      {elemento:"Linterna",descripcion:"LED recargable",cantidad:1}
-  ]},
-  {id:6,fecha:"2025-04-16",estado:"Pendiente", usuario:{nombre:"Paula",apellido:"Giménez"}, productos:[
-      {elemento:"Cinturón porta herramientas",descripcion:"Múltiples bolsillos",cantidad:1},
-      {elemento:"Cinta métrica",descripcion:"5 metros",cantidad:1},
-      {elemento:"Guantes de nitrilo",descripcion:"Resistentes a químicos",cantidad:2},
-      {elemento:"Barbijos",descripcion:"Descartables",cantidad:1}
-  ]}
+  // ...array de ejemplo original (puedes dejarlo vacío si solo quieres usar pedidos.json)...
 ];
 
 function loadOrders() {
   const stored = localStorage.getItem("ordersTest");
   if (stored) return JSON.parse(stored);
-  localStorage.setItem("ordersTest", JSON.stringify(SAMPLE_ORDERS));
-  return SAMPLE_ORDERS;
+  // Intentar cargar desde pedidos.json
+  // MARCA TEMPORAL: Este bloque puede eliminarse en producción
+  let pedidos = SAMPLE_ORDERS;
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', '../pedidos.json', false); // Sincrónico para inicialización
+  try {
+    xhr.send(null);
+    if (xhr.status === 200) {
+      pedidos = JSON.parse(xhr.responseText);
+    }
+  } catch (e) {
+    // Si falla, usar SAMPLE_ORDERS
+  }
+  localStorage.setItem("ordersTest", JSON.stringify(pedidos));
+  return pedidos;
 }
 function saveOrders(arr) { localStorage.setItem("ordersTest", JSON.stringify(arr)); }
 
@@ -57,8 +45,9 @@ function filterOrders() {
   }
   if (Datos.rol === "supervisor") return orders;
   if (Datos.rol === "paniol") {
+    // Ahora el pañol ve los pedidos "Aprobado", "Preparado" y "Listo para entrega"
     return orders.filter(o =>
-      o.estado.startsWith("Aprobado") || o.estado.startsWith("Preparado")
+      o.estado.startsWith("Aprobado") || o.estado.startsWith("Preparado") || o.estado.startsWith("Listo para entrega")
     );
   }
   return [];
@@ -76,7 +65,8 @@ function renderCards() {
     if (o.estado.startsWith("Aprobado")) cls = "state-approved";
     if (o.estado.startsWith("Rechazado")) cls = "state-rejected";
     if (o.estado.startsWith("Preparado")) cls = "state-prepared";
-    if (o.estado.startsWith("Entregado")) cls = "state-delivered";
+    if (o.estado.startsWith("Listo para entrega")) cls = "state-ready";
+    if (o.estado.startsWith("Entregado") || o.estado.startsWith("Retirado")) cls = "state-delivered";
 
     const card = document.createElement("div");
     card.className = `card ${cls}`;
@@ -163,7 +153,7 @@ function doReject(id) {
 function doPrepare(id) {
   const o = orders.find(x=>x.id===id);
   const d = new Date(), f = `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`;
-  o.estado="Preparado - Listo para retiro";
+  o.estado = "Listo para entrega";
   o.preparedBy   = currentUser; o.preparedDate   = f;
   saveOrders(orders); renderCards(); openModal(id);
 }

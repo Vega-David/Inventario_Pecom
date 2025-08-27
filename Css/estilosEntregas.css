@@ -1,3 +1,20 @@
+/* Estilo para los selectores de usuario y pedido */
+select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--color-primary);
+  background-color: #18396a;
+  color: var(--color-text);
+  font-size: 1rem;
+  font-family: var(--font-main);
+  margin-bottom: 5px;
+  transition: border-color 0.3s;
+}
+select:focus {
+  outline: none;
+  border-color: var(--color-secondary);
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600&display=swap');
 
 :root {

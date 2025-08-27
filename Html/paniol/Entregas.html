@@ -14,15 +14,24 @@
     <h1 class="titulo">Formulario de Retiro de Materiales</h1>
 
     <form id="retiroForm">
+      <!-- Selección de usuario y pedido -->
+      <label for="selectUsuario">Seleccionar usuario:</label>
+      <select id="selectUsuario">
+        <option value="">-- Seleccione un usuario --</option>
+      </select>
+      <label for="selectPedido">Seleccionar pedido:</label>
+      <select id="selectPedido" disabled>
+        <option value="">-- Seleccione un pedido --</option>
+      </select>
       <!-- Datos del Retirante -->
-      <label for="nombre">Nombre:</label>
-      <input type="text" id="nombre" placeholder="Ingrese su nombre" required>
+  <label for="nombre">Nombre:</label>
+  <input type="text" id="nombre" placeholder="Ingrese su nombre" required readonly>
 
-      <label for="apellido">Apellido:</label>
-      <input type="text" id="apellido" placeholder="Ingrese su apellido" required>
+  <label for="apellido">Apellido:</label>
+  <input type="text" id="apellido" placeholder="Ingrese su apellido" required readonly>
 
-      <label for="documento">Documento:</label>
-      <input type="text" id="documento" placeholder="Ingrese su documento" required>
+  <label for="documento">Documento:</label>
+  <input type="text" id="documento" placeholder="Ingrese su documento" required readonly>
 
       <!-- Sección de Materiales -->
       <fieldset id="materiales">
@@ -45,7 +54,7 @@
       <button type="button" onclick="limpiarFirma()">Limpiar Firma</button>
 
       <!-- Botón para generar el PDF -->
-      <button type="submit">Generar PDF</button>
+  <button type="submit">Realizar entrega</button>
     </form>
   </div>
 

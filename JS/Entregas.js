@@ -1,4 +1,93 @@
 // ------------------------------
+// Integración con pedidos "Listo para entrega"
+// ------------------------------
+const selectUsuario = document.getElementById("selectUsuario");
+const selectPedido = document.getElementById("selectPedido");
+
+// Cargar usuarios con pedidos "Listo para entrega"
+function cargarUsuariosPedidos() {
+  const orders = JSON.parse(localStorage.getItem("ordersTest")) || [];
+  // Filtrar pedidos en estado "Listo para entrega"
+  const pedidosListos = orders.filter(o => o.estado && o.estado.startsWith("Listo para entrega"));
+  // Obtener usuarios únicos y contar pedidos por usuario
+  const usuariosUnicos = [];
+  pedidosListos.forEach(o => {
+    const key = `${o.usuario.nombre}|||${o.usuario.apellido}|||${o.usuario.documento||''}`;
+    let usuario = usuariosUnicos.find(u => u.key === key);
+    if (!usuario) {
+      usuario = {
+        key,
+        nombre: o.usuario.nombre,
+        apellido: o.usuario.apellido,
+        documento: o.usuario.documento || '',
+        cantidad: 0
+      };
+      usuariosUnicos.push(usuario);
+    }
+    usuario.cantidad++;
+  });
+  // Poblar el selector con nombre, apellido, documento y cantidad de pedidos
+  selectUsuario.innerHTML = '<option value="">-- Seleccione un usuario --</option>';
+  usuariosUnicos.forEach(u => {
+    selectUsuario.innerHTML += `<option value="${u.key}">${u.nombre} ${u.apellido} ${u.documento} (${u.cantidad})</option>`;
+  });
+  // Limpiar selector de pedidos
+  selectPedido.innerHTML = '<option value="">-- Seleccione un pedido --</option>';
+  selectPedido.disabled = true;
+}
+
+// Al cambiar usuario, poblar pedidos
+selectUsuario.addEventListener("change", function() {
+  const key = this.value;
+  if (!key) {
+    selectPedido.innerHTML = '<option value="">-- Seleccione un pedido --</option>';
+    selectPedido.disabled = true;
+    return;
+  }
+  const [nombre, apellido, documento] = key.split("|||");
+  const orders = JSON.parse(localStorage.getItem("ordersTest")) || [];
+  const pedidosUsuario = orders.filter(o =>
+    o.estado && o.estado.startsWith("Listo para entrega") &&
+    o.usuario.nombre === nombre && o.usuario.apellido === apellido
+  );
+  selectPedido.innerHTML = '<option value="">-- Seleccione un pedido --</option>';
+  pedidosUsuario.forEach(o => {
+    const cantidadItems = o.productos ? o.productos.length : 0;
+    selectPedido.innerHTML += `<option value="${o.id}">Pedido #${o.id} - ${o.fecha} - Cantidad items ${cantidadItems}</option>`;
+  });
+  selectPedido.disabled = false;
+  // Autocompletar datos personales si hay solo un pedido
+  if (pedidosUsuario.length === 1) {
+    selectPedido.value = pedidosUsuario[0].id;
+    selectPedido.dispatchEvent(new Event('change'));
+  }
+});
+
+// Al cambiar pedido, poblar datos y materiales
+selectPedido.addEventListener("change", function() {
+  const pedidoId = parseInt(this.value);
+  if (!pedidoId) {
+    document.getElementById("nombre").value = "";
+    document.getElementById("apellido").value = "";
+    document.getElementById("documento").value = "";
+    materiales = [];
+    actualizarListaMateriales();
+    return;
+  }
+  const orders = JSON.parse(localStorage.getItem("ordersTest")) || [];
+  const pedido = orders.find(o => o.id === pedidoId);
+  if (pedido) {
+    document.getElementById("nombre").value = pedido.usuario.nombre || "";
+    document.getElementById("apellido").value = pedido.usuario.apellido || "";
+    document.getElementById("documento").value = pedido.usuario.documento || "";
+    materiales = pedido.productos.map(p => ({ elemento: p.elemento, descripcion: p.descripcion, cantidad: p.cantidad }));
+    actualizarListaMateriales();
+  }
+});
+
+// Inicializar selectores al cargar la página
+window.addEventListener("DOMContentLoaded", cargarUsuariosPedidos);
+// ------------------------------
 // Manejo de Materiales
 // ------------------------------
 let materiales = [];
@@ -128,17 +217,28 @@ document.getElementById("retiroForm").addEventListener("submit", function(e) {
     alert("Complete los datos personales.");
     return;
   }
-  
   // Validar lista de materiales
   if (materiales.length === 0) {
     alert("Agregue al menos un material a retirar.");
     return;
   }
-
   // Validar que se haya firmado
   if (!firmaDibujada) {
     alert("Por favor, firme en el área designada.");
     return;
+  }
+
+  // Cambiar estado del pedido a 'Retirado'
+  const pedidoId = parseInt(document.getElementById("selectPedido").value);
+  if (pedidoId) {
+    let orders = JSON.parse(localStorage.getItem("ordersTest")) || [];
+    const pedido = orders.find(o => o.id === pedidoId);
+    if (pedido) {
+      pedido.estado = "Retirado";
+      pedido.retiradoPor = `${nombre} ${apellido}`;
+      pedido.fechaRetiro = new Date().toISOString();
+      localStorage.setItem("ordersTest", JSON.stringify(orders));
+    }
   }
 
   const firmaImg = obtenerFirma();
@@ -193,4 +293,16 @@ document.getElementById("retiroForm").addEventListener("submit", function(e) {
   // Guardar PDF con nombre "documento_[documento]_[nombre]_[apellido].pdf"
   const fileName = `documento_${documento}_${nombre}_${apellido}.pdf`;
   doc.save(fileName);
+
+  // Refrescar selectores para que desaparezca el pedido entregado
+  cargarUsuariosPedidos();
+  selectUsuario.value = "";
+  selectPedido.innerHTML = '<option value="">-- Seleccione un pedido --</option>';
+  selectPedido.disabled = true;
+  document.getElementById("nombre").value = "";
+  document.getElementById("apellido").value = "";
+  document.getElementById("documento").value = "";
+  materiales = [];
+  actualizarListaMateriales();
+  limpiarFirma();
 });
