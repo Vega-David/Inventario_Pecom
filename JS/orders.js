@@ -39,9 +39,12 @@ function loadOrders() {
 }
 function saveOrders(arr) { localStorage.setItem("ordersTest", JSON.stringify(arr)); }
 
+
 let orders = loadOrders();
-const Datos=JSON.parse(sessionStorage.getItem("Datos"))
+const Datos = JSON.parse(sessionStorage.getItem("Datos"));
 if (!Datos.usuario || !Datos.rol) window.location.href = "../login.html";
+// Definir currentUser globalmente para todo el archivo
+const currentUser = Datos.usuario ? `${Datos.usuario.nombre} ${Datos.usuario.apellido}` : "";
 
 // ------------------------------
 // Filtrado según rol (incluye "Preparado")
@@ -65,6 +68,7 @@ function filterOrders() {
 // Render de tarjetas con estado
 // ------------------------------
 function renderCards() {
+  orders = loadOrders(); // <-- Recargar siempre los pedidos actualizados
   const container = document.getElementById("cardsContainer");
   container.innerHTML = "";
   filterOrders().forEach(o => {
