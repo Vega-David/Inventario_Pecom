@@ -10,32 +10,31 @@ if (!localStorage.getItem("roles")) {
 }
 
 // Función para el login
+
 function login(event) {
-    event.preventDefault(); // Prevenir el envío del formulario
+    event.preventDefault();
 
-    // Obtener y limpiar valores del formulario
-    const username = document.getElementById("nombreUsuario").value.trim();
+    // Permitir login por nombre de usuario o documento
+    const userOrDoc = document.getElementById("nombreUsuario").value.trim();
     const pass = document.getElementById("pass").value.trim();
-
     const roles = JSON.parse(localStorage.getItem("roles"));
 
-    console.log("Intentando login con:", username);
-    console.log("Roles guardados:", roles);
-
-    
-
-    // Verificar si el usuario existe y la contraseña coincide
-    if (roles[username] && pass === roles[username].pass) {
-        const rol = roles[username].rol;
-        const apellido=roles[username].apellido;
-        const usuario={
-            usuario:username,
-            apellido:apellido,
-            rol:rol
+    let usuarioEncontrado = null;
+    for (let key in roles) {
+        const user = roles[key];
+        if (
+            key === userOrDoc ||
+            (user.documento && user.documento === userOrDoc)
+        ) {
+            usuarioEncontrado = { ...user, usuario: key };
+            break;
         }
-        sessionStorage.setItem("Datos",JSON.stringify(usuario))
-        
-        switch (rol) {
+    }
+
+    if (usuarioEncontrado && pass === usuarioEncontrado.pass) {
+        // Guardar todos los datos relevantes en sessionStorage
+        sessionStorage.setItem("Datos", JSON.stringify(usuarioEncontrado));
+        switch (usuarioEncontrado.rol) {
             case "usuario":
                 window.location.href = "Html/usuario/index.html";
                 break;
@@ -50,7 +49,7 @@ function login(event) {
                 break;
         }
     } else {
-        alert("Usuario o contraseña incorrecta.");
+        alert("Usuario/documento o contraseña incorrecta.");
     }
 }
 

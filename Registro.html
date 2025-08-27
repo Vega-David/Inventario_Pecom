@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Registro de Usuarios</title>
-  <!-- Vincular el CSS -->
-  <link rel="stylesheet" href="Css/estiloRegistro.css">
-</head>
-<body>
-  <div class="container">
+  <head>
+    <meta charset="UTF-8">
+    <title>Registro de Usuarios</title>
+    <!-- Vincular el CSS -->
+    <link rel="stylesheet" href="Css/estiloRegistro.css">
+  </head>
+  <body>
+    <div class="container">
     <h2 class="titulo">Registro de Usuarios</h2>
 
     <form id="registroForm">
@@ -16,13 +16,25 @@
         <label for="username">Nombre de Usuario:</label>
         <input type="text" id="username" required />
       </div>
-
-      <!-- Campo apellido del usuario -->
+      
+      <!-- Campo Nombre real -->
       <div class="form-group">
-        <label for="apellido">Apellido de Usuario:</label>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" required />
+      </div>
+      
+      <!-- Campo Apellido real -->
+      <div class="form-group">
+        <label for="apellido">Apellido:</label>
         <input type="text" id="apellido" required />
       </div>
-
+      
+      <!-- Campo Documento -->
+      <div class="form-group">
+        <label for="documento">Documento:</label>
+        <input type="text" id="documento" required pattern="\d{7,10}" title="Ingrese solo números" />
+      </div>
+      
       <!-- Campo Contraseña con botón para mostrar/ocultar -->
       <div class="form-group">
         <label for="pass">Contraseña:</label>
